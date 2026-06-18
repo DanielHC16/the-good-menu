@@ -6,16 +6,16 @@ export class CreateScheduleDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  userId: number;
+  userId!: number;
 
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  mealId: number;
+  mealId!: number;
 
   @IsDateString()
-  scheduledDate: string;
+  scheduledDate!: string;
 
   @IsEnum(TimeSlot)
-  timeSlot: TimeSlot;
+  timeSlot!: TimeSlot;
 }

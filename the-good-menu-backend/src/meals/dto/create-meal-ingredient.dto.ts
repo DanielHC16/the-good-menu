@@ -4,7 +4,7 @@ import { IsInt, IsString, ValidateIf } from 'class-validator';
 export class CreateMealIngredientDto {
   @Type(() => Number)
   @IsInt()
-  mealId: number;
+  mealId!: number;
 
   @ValidateIf((mealIngredient: CreateMealIngredientDto) => {
     return !mealIngredient.customIngredientName;
@@ -14,7 +14,7 @@ export class CreateMealIngredientDto {
   productId?: number;
 
   @IsString()
-  quantity: string;
+  quantity!: string;
 
   @ValidateIf((mealIngredient: CreateMealIngredientDto) => {
     return !mealIngredient.productId;
