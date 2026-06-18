@@ -42,7 +42,7 @@ export class IngredientDto {
   @IsString()
   @IsNotEmpty()
   @Validate(ProductOrCustomIngredientConstraint)
-  quantity: string;
+  quantity!: string;
 
   @IsOptional()
   @IsString()
@@ -59,15 +59,15 @@ export class CreateMealDto {
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsString()
   @IsNotEmpty()
-  preparationGuide: string;
+  preparationGuide!: string;
 
   @IsArray()
   @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => IngredientDto)
-  ingredients: IngredientDto[];
+  ingredients!: IngredientDto[];
 }

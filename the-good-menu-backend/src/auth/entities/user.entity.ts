@@ -13,26 +13,26 @@ import { Schedule } from '../../schedules/entities/schedule.entity';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ unique: true })
-  username: string;
+  username!: string;
 
   @Column({ name: 'password_hash' })
-  passwordHash: string;
+  passwordHash!: string;
 
   @OneToMany(() => Meal, (meal) => meal.user)
-  meals: Meal[];
+  meals!: Meal[];
 
   @OneToMany(() => Schedule, (schedule) => schedule.user)
-  schedules: Schedule[];
+  schedules!: Schedule[];
 
   @OneToMany(() => AuditLog, (auditLog) => auditLog.user)
-  auditLogs: AuditLog[];
+  auditLogs!: AuditLog[];
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
+  updatedAt!: Date;
 }

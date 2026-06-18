@@ -11,16 +11,16 @@ import {
 export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsString()
   @IsNotEmpty()
-  category: string;
+  category!: string;
 
   @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
-  price: number;
+  price!: number;
 
   @IsOptional()
   @IsString()
@@ -30,20 +30,20 @@ export class CreateProductDto {
   @Type(() => Number)
   @IsInt()
   @Min(0)
-  calories: number;
+  calories!: number;
 
   @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
-  proteinG: number;
+  proteinG!: number;
 
   @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
-  carbsG: number;
+  carbsG! : number;
 
   @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
-  fatG: number;
+  fatG!: number;
 }

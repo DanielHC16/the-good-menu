@@ -11,30 +11,30 @@ import { User } from '../../auth/entities/user.entity';
 @Entity('audit_logs')
 export class AuditLog {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ name: 'user_id', type: 'int', nullable: true })
-  userId: number | null;
+  userId!: number | null;
 
   @ManyToOne(() => User, (user) => user.auditLogs, {
     nullable: true,
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'user_id' })
-  user: User | null;
+  user!: User | null;
 
   @Column()
-  action: string;
+  action!: string;
 
   @Column({ name: 'table_name' })
-  tableName: string;
+  tableName!: string;
 
   @Column({ name: 'record_id', type: 'int' })
-  recordId: number;
+  recordId!: number;
 
   @Column({ type: 'json' })
-  changes: Record<string, unknown>;
+  changes!: Record<string, unknown>;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  createdAt!: Date;
 }
