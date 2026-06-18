@@ -1,0 +1,37 @@
+# =========================
+# DEPENDENCIES
+# =========================
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# =========================
+# BACKEND (NestJS)
+# =========================
+dist/
+.env
+
+# =========================
+# FRONTEND (React / Vite)
+# =========================
+build/
+dist-ssr/
+*.local
+
+# =========================
+# OS & EDITOR EXCLUSIONS
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# =========================
+# context
+# =========================
+context
