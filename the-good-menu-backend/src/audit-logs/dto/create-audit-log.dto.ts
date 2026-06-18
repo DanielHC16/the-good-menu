@@ -8,15 +8,15 @@ export class CreateAuditLogDto {
   userId?: number;
 
   @IsString()
-  action: string;
+  action!: string;
 
   @IsString()
-  tableName: string;
+  tableName!: string;
 
   @Type(() => Number)
   @IsInt()
-  recordId: number;
+  recordId!: number;
 
   @IsObject()
-  changes: Record<string, unknown>;
+  changes!: Record<string, unknown>;
 }
