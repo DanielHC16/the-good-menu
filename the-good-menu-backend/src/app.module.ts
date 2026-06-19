@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuditLogsModule } from './audit-logs/audit-logs.module';
 import { AuthModule } from './auth/auth.module';
@@ -9,6 +10,7 @@ import { SchedulesModule } from './schedules/schedules.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '127.0.0.1',

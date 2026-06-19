@@ -34,39 +34,47 @@ export class SeederService {
   async seedAll() {
     this.logger.log('Starting full database seed...');
 
-    // Safely extract JSON arrays (handles .default wrapping from CJS compilation)
-    const productsArray: any[] = Array.isArray(productsData)
-      ? productsData
-      : (productsData as any).default;
-    const mealsArray: any[] = Array.isArray(mealsData)
-      ? mealsData
-      : (mealsData as any).default;
-    const schedulesArray: any[] = Array.isArray(schedulesData)
-      ? schedulesData
-      : (schedulesData as any).default;
+    // ── Spam Shield: disable audit logging for seed operations ──
+    process.env.IS_SEEDING = 'true';
 
-    // Phase 1: Clear tables in reverse dependency order (FK safety)
-    await this.clearTables();
+    try {
+      // Safely extract JSON arrays (handles .default wrapping from CJS compilation)
+      const productsArray: any[] = Array.isArray(productsData)
+        ? productsData
+        : (productsData as any).default;
+      const mealsArray: any[] = Array.isArray(mealsData)
+        ? mealsData
+        : (mealsData as any).default;
+      const schedulesArray: any[] = Array.isArray(schedulesData)
+        ? schedulesData
+        : (schedulesData as any).default;
 
-    // Phase 2: Seed Products
-    const savedProducts = await this.seedProducts(productsArray);
+      // Phase 1: Clear tables in reverse dependency order (FK safety)
+      await this.clearTables();
 
-    // Phase 3: Seed Meals (with cascaded ingredients)
-    const savedMeals = await this.seedMeals(mealsArray);
+      // Phase 2: Seed Products
+      const savedProducts = await this.seedProducts(productsArray);
 
-    // Phase 4: Seed Schedules
-    const savedSchedules = await this.seedSchedules(schedulesArray);
+      // Phase 3: Seed Meals (with cascaded ingredients)
+      const savedMeals = await this.seedMeals(mealsArray);
 
-    this.logger.log('Database seed completed successfully.');
+      // Phase 4: Seed Schedules
+      const savedSchedules = await this.seedSchedules(schedulesArray);
 
-    return {
-      message: 'Database seeded successfully.',
-      summary: {
-        productsCreated: savedProducts,
-        mealsCreated: savedMeals,
-        schedulesCreated: savedSchedules,
-      },
-    };
+      this.logger.log('Database seed completed successfully.');
+
+      return {
+        message: 'Database seeded successfully.',
+        summary: {
+          productsCreated: savedProducts,
+          mealsCreated: savedMeals,
+          schedulesCreated: savedSchedules,
+        },
+      };
+    } finally {
+      // ── Guarantee audit logging resumes for real traffic ──
+      process.env.IS_SEEDING = 'false';
+    }
   }
 
   /**

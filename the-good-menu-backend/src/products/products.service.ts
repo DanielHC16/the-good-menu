@@ -32,15 +32,20 @@ export class ProductsService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    await this.findOne(id); // Verify product exists (throws NotFoundException)
-    await this.productsRepository.update(id, updateProductDto);
+    const product = await this.findOne(id);
+    Object.assign(product, updateProductDto);
 
-    return this.findOne(id);
+    return this.productsRepository.save(product);
   }
 
   async remove(id: number) {
-    await this.findOne(id); // Verify product exists (throws NotFoundException)
-    await this.productsRepository.softDelete(id);
+    const product = await this.productsRepository.findOneBy({ id });
+
+    if (!product) {
+      throw new NotFoundException(`Product #${id} was not found.`);
+    }
+
+    await this.productsRepository.softRemove(product);
 
     return { message: `Record #${id} successfully deleted.` };
   }
