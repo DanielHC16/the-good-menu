@@ -41,7 +41,36 @@ export async function getMeals(): Promise<Meal[]> {
  * Each ingredient must include `productId` and `quantity`.
  */
 export async function createMeal(payload: MealPayload): Promise<Meal> {
-  const { data } = await api.post<Meal>('/meals', payload);
+  const mappedIngredients = (payload.ingredients || []).map((ing) => {
+    let productId: number | null = null;
+    if (ing.productId !== null && ing.productId !== undefined) {
+      const parsed = Number(ing.productId);
+      if (!isNaN(parsed) && parsed > 0) {
+        productId = parsed;
+      }
+    }
+    const customIngredientName = (ing.customIngredientName && typeof ing.customIngredientName === 'string' && ing.customIngredientName.trim() !== '')
+      ? ing.customIngredientName.trim()
+      : null;
+
+    return {
+      productId,
+      quantity: String(ing.quantity || ''),
+      customIngredientName,
+    };
+  });
+
+  const filteredIngredients = mappedIngredients.filter(
+    (ing) => !(ing.productId === null && ing.customIngredientName === null)
+  );
+
+  const sanitized = {
+    name: payload.name,
+    preparationGuide: payload.preparationGuide,
+    ingredients: filteredIngredients,
+  };
+
+  const { data } = await api.post<Meal>('/meals', sanitized);
   return data;
 }
 
@@ -51,7 +80,35 @@ export async function createMeal(payload: MealPayload): Promise<Meal> {
  * Replaces the full ingredients array if provided.
  */
 export async function updateMeal(id: number, payload: Partial<MealPayload>): Promise<Meal> {
-  const { data } = await api.patch<Meal>(`/meals/${id}`, payload);
+  const sanitized: any = {};
+  if (payload.name !== undefined) sanitized.name = payload.name;
+  if (payload.preparationGuide !== undefined) sanitized.preparationGuide = payload.preparationGuide;
+  if (payload.ingredients !== undefined) {
+    const mappedIngredients = payload.ingredients.map((ing) => {
+      let productId: number | null = null;
+      if (ing.productId !== null && ing.productId !== undefined) {
+        const parsed = Number(ing.productId);
+        if (!isNaN(parsed) && parsed > 0) {
+          productId = parsed;
+        }
+      }
+      const customIngredientName = (ing.customIngredientName && typeof ing.customIngredientName === 'string' && ing.customIngredientName.trim() !== '')
+        ? ing.customIngredientName.trim()
+        : null;
+
+      return {
+        productId,
+        quantity: String(ing.quantity || ''),
+        customIngredientName,
+      };
+    });
+
+    sanitized.ingredients = mappedIngredients.filter(
+      (ing) => !(ing.productId === null && ing.customIngredientName === null)
+    );
+  }
+
+  const { data } = await api.patch<Meal>(`/meals/${id}`, sanitized);
   return data;
 }
 

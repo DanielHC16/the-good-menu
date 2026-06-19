@@ -37,7 +37,17 @@ export async function getProducts(): Promise<Product[]> {
  * POST /products
  */
 export async function createProduct(payload: ProductPayload): Promise<Product> {
-  const { data } = await api.post<Product>('/products', payload);
+  const sanitized = {
+    name: payload.name,
+    category: payload.category,
+    price: Number(payload.price),
+    imageUrl: payload.imageUrl,
+    calories: Number(payload.calories),
+    proteinG: Number(payload.proteinG),
+    carbsG: Number(payload.carbsG),
+    fatG: Number(payload.fatG),
+  };
+  const { data } = await api.post<Product>('/products', sanitized);
   return data;
 }
 
@@ -46,7 +56,17 @@ export async function createProduct(payload: ProductPayload): Promise<Product> {
  * PATCH /products/:id
  */
 export async function updateProduct(id: number, payload: Partial<ProductPayload>): Promise<Product> {
-  const { data } = await api.patch<Product>(`/products/${id}`, payload);
+  const sanitized: Partial<ProductPayload> = {};
+  if (payload.name !== undefined) sanitized.name = payload.name;
+  if (payload.category !== undefined) sanitized.category = payload.category;
+  if (payload.price !== undefined) sanitized.price = Number(payload.price);
+  if (payload.imageUrl !== undefined) sanitized.imageUrl = payload.imageUrl;
+  if (payload.calories !== undefined) sanitized.calories = Number(payload.calories);
+  if (payload.proteinG !== undefined) sanitized.proteinG = Number(payload.proteinG);
+  if (payload.carbsG !== undefined) sanitized.carbsG = Number(payload.carbsG);
+  if (payload.fatG !== undefined) sanitized.fatG = Number(payload.fatG);
+
+  const { data } = await api.patch<Product>(`/products/${id}`, sanitized);
   return data;
 }
 
