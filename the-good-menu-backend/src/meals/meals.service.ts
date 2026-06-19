@@ -5,6 +5,7 @@ import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
 import { MealIngredient } from './entities/meal-ingredient.entity';
 import { Meal } from './entities/meal.entity';
+import { Schedule } from '../schedules/entities/schedule.entity';
 
 @Injectable()
 export class MealsService {
@@ -13,6 +14,8 @@ export class MealsService {
     private readonly mealsRepository: Repository<Meal>,
     @InjectRepository(MealIngredient)
     private readonly mealIngredientsRepository: Repository<MealIngredient>,
+    @InjectRepository(Schedule)
+    private readonly schedulesRepository: Repository<Schedule>,
   ) {}
 
   create(createMealDto: CreateMealDto) {
@@ -79,8 +82,19 @@ export class MealsService {
       throw new NotFoundException(`Meal #${id} was not found.`);
     }
 
-    await this.mealsRepository.softRemove(meal);
+    // Check if this meal is referenced by any schedule
+    const scheduleCount = await this.schedulesRepository.count({
+      where: { mealId: id },
+    });
 
-    return { message: `Record #${id} successfully deleted.` };
+    if (scheduleCount > 0) {
+      // Meal is linked to schedule(s) — preserve via soft delete
+      await this.mealsRepository.softRemove(meal);
+      return { message: `Meal #${id} successfully soft-deleted.` };
+    }
+
+    // Meal has never been scheduled — clean hard delete
+    await this.mealsRepository.remove(meal);
+    return { message: `Meal #${id} successfully hard-deleted.` };
   }
 }
