@@ -1,98 +1,120 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# The Good Menu: Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A NestJS REST API built for "The Good Menu: An Aboitiz Meal Planner." Developed as an onboarding project, this backend provides a secure, typed, and modular foundation for managing users, Aboitiz retail products, meals, and weekly schedules. It features JWT authentication, automated database auditing, and comprehensive relational data management.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+### Tech Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* **Framework:** NestJS 11
+* **Language:** TypeScript
+* **Database:** MySQL
+* **ORM:** TypeORM 0.3
+* **Authentication:** Passport-JWT, Bcrypt
+* **Mailing:** Nodemailer (via SMTP)
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+### Prerequisites
 
-## Compile and run the project
+Ensure you have the following installed on your local machine:
+* Node.js (v18 or higher)
+* MySQL Server
+* Git
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+### Installation
 
-# production mode
-$ npm run start:prod
-```
+1. Navigate to the backend directory:
+   ```bash
+   cd the-good-menu-backend
+   ```
 
-## Run tests
+2. Install the project dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-# unit tests
-$ npm run test
+3. Set up your environment variables. Create a `.env` file in the root directory and configure the following keys:
+   ```env
+   PORT=3000
+   TL_EMAIL=your_email@example.com
+   SMTP_HOST=smtp.ethereal.email
+   SMTP_PORT=587
+   SMTP_USER=your_ethereal_username
+   SMTP_PASS=your_ethereal_password
+   JWT_SECRET=your_secret_key
+   JWT_EXPIRATION=1d
+   ```
 
-# e2e tests
-$ npm run test:e2e
+4. Database Setup:
+   Ensure your local MySQL server is running and database `the_good_menu` is created. By default, connection settings in `src/app.module.ts` are configured for:
+   * **Host:** `127.0.0.1`
+   * **Port:** `3306`
+   * **Username:** `root`
+   * **Password:** `password`
+   * **Database:** `the_good_menu`
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+### Running the Application
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1. Start the development server:
+   ```bash
+   npm run start:dev
+   ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2. Once the server is running, you can populate the database with mock Aboitiz products and preset meals by triggering the seeder endpoint:
+   * **Method:** `POST`
+   * **Endpoint:** `http://localhost:3000/seed/all`
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+---
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Key Architecture & Features
 
-## Resources
+* **Strict Validation:** All incoming requests are validated using `class-validator` and `class-transformer` via a global `ValidationPipe`. Non-whitelisted properties are strictly forbidden.
+* **JWT Security:** Passwords are automatically hashed via `bcrypt` using TypeORM lifecycle hooks before insertion or updates. Protected routes require a valid Bearer token provided by the `JwtAuthGuard`.
+* **Database Auditing (The Watchtower):** A global TypeORM `EventSubscriber` intercepts all database mutations (`INSERT`, `UPDATE`, `DELETE`, `SOFT_DELETE`). It logs changes to the `audit_logs` table and triggers automated email alerts via Nodemailer.
+* **Conditional Data Deletion:**
+  * **Products:** Soft-deleted to preserve historical audit logs and meal data.
+  * **Meals:** Soft-deleted if actively linked to a user's schedule; hard-deleted if unlinked.
+  * **Users:** Hard-deleted with cascading effects on their schedules and meals.
+* **Service-Layer Execution:** All database logic is decoupled from controllers, utilizing a strict "Fetch-then-Save" pattern to ensure TypeORM lifecycle hooks are properly triggered.
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### API Structure
 
-## Support
+#### Authentication & Users (`/auth` & `/users`)
+* `POST /register` - Register a new user
+* `POST /login` - Authenticate and receive a JWT
+* `GET /users` - List all users
+* `GET /users/:id` - Get specific user
+* `PATCH /users/:id` - Update user details
+* `DELETE /users/:id` - Hard delete user (cascading delete)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Products (`/products`)
+* `POST /products` - Add new product
+* `GET /products` - List all products
+* `GET /products/:id` - Get specific product
+* `PATCH /products/:id` - Update product details
+* `DELETE /products/:id` - Soft delete product
 
-## Stay in touch
+#### Meals (`/meals`)
+* `POST /meals` - Create a meal with nested ingredients
+* `GET /meals` - List all meals
+* `GET /meals/:id` - Get specific meal
+* `PATCH /meals/:id` - Update meal details
+* `DELETE /meals/:id` - Conditional soft/hard delete
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Schedules (`/schedules`)
+* `POST /schedules` - Schedule a meal
+* `GET /schedules` - List schedules
+* `GET /schedules/:id` - Get specific schedule
+* `PATCH /schedules/:id` - Update schedule details
+* `DELETE /schedules/:id` - Hard delete schedule
 
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### Audit Logs (`/audit-logs`)
+* `GET /audit-logs` - List all database mutation logs
+* `GET /audit-logs/:id` - Get specific log details
