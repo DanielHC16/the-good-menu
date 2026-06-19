@@ -1,0 +1,152 @@
+[
+  {
+    "name": "Farmer's Ham (200g)",
+    "category": "Ready-to-Cook",
+    "price": 175.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/06/TGM_Ecomm_RTC_Slide-1_05-Farmers-Ham-300x300.jpg",
+    "calories": 290,
+    "proteinG": 16.5,
+    "carbsG": 3.2,
+    "fatG": 22.0
+  },
+  {
+    "name": "Pork BBQ Belly (400g) Marinated Liempo",
+    "category": "Ready-to-Cook",
+    "price": 470.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/11/TGM_Ecomm_RTC_Slide-1_03-Pork-BBQ-Belly-300x300.jpg",
+    "calories": 520,
+    "proteinG": 18.0,
+    "carbsG": 6.5,
+    "fatG": 42.0
+  },
+  {
+    "name": "Pork Embutido (400g)",
+    "category": "Ready-to-Cook",
+    "price": 345.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2022/07/TGM_Ecomm_RTC_Slide-1_04-Pork-Embotido-300x300.jpg",
+    "calories": 480,
+    "proteinG": 20.0,
+    "carbsG": 12.0,
+    "fatG": 32.0
+  },
+  {
+    "name": "Pork Sisig (200g)",
+    "category": "Ready-to-Cook",
+    "price": 175.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/11/TGM_Ecomm_RTC_Slide-1_06-Pork-Sisig-300x300.jpg",
+    "calories": 350,
+    "proteinG": 22.0,
+    "carbsG": 4.0,
+    "fatG": 26.0
+  },
+  {
+    "name": "Pork Tapa (400g)",
+    "category": "Ready-to-Cook",
+    "price": 190.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2020/10/TGM_Ecomm_RTC_Slide-1_02-Pork-Tapa-300x300.jpg",
+    "calories": 410,
+    "proteinG": 28.0,
+    "carbsG": 8.0,
+    "fatG": 28.0
+  },
+  {
+    "name": "Pork Tocino (400g)",
+    "category": "Ready-to-Cook",
+    "price": 190.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2022/03/TGM_Ecomm_RTC_Slide-1_01-Pork-Tocino-300x300.jpg",
+    "calories": 440,
+    "proteinG": 18.0,
+    "carbsG": 14.0,
+    "fatG": 30.0
+  },
+  {
+    "name": "Smoked Bacon (400g)",
+    "category": "Ready-to-Cook",
+    "price": 375.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/11/TGM_Ecomm_RTC_Slide-1_07-Smoked-Bacon-300x300.jpg",
+    "calories": 540,
+    "proteinG": 14.0,
+    "carbsG": 2.0,
+    "fatG": 48.0
+  },
+  {
+    "name": "Bounty Fresh Breast Chicken Cut-ups (860g)",
+    "category": "Chicken",
+    "price": 285.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2020/09/TGM_Ecomm_Chicken_03-Chicken-Breast-860g-1-300x300.jpg",
+    "calories": 330,
+    "proteinG": 62.0,
+    "carbsG": 0.0,
+    "fatG": 7.2
+  },
+  {
+    "name": "Bounty Fresh Chicken Leg Quarters (860g)",
+    "category": "Chicken",
+    "price": 285.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/01/TGM_Ecomm_Chicken_05-Leg-Quarters-800g-1-300x300.jpg",
+    "calories": 440,
+    "proteinG": 48.0,
+    "carbsG": 0.0,
+    "fatG": 26.0
+  },
+  {
+    "name": "Bounty Fresh Drumstick Chicken Cut-ups (860g)",
+    "category": "Chicken",
+    "price": 285.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2020/09/TGM_Ecomm_Chicken_06-Drumstick-Chicken-860g-1-300x300.jpg",
+    "calories": 400,
+    "proteinG": 52.0,
+    "carbsG": 0.0,
+    "fatG": 20.0
+  },
+  {
+    "name": "TGM Whole Dressed Chicken (1kg)",
+    "category": "Chicken",
+    "price": 265.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2024/05/ssph.zone-1714552990-TGM_Ecomm_Chicken_01-Whole-Chicken-1kg-1-450x450-1-300x300.jpg",
+    "calories": 480,
+    "proteinG": 50.0,
+    "carbsG": 0.0,
+    "fatG": 30.0
+  },
+  {
+    "name": "Beef Brisket Cut (500g)",
+    "category": "Beef",
+    "price": 320.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2022/04/TGM_Ecomm_Beef_Slide-1_10-BEEF-BRISKET-500g-300x300.jpg",
+    "calories": 520,
+    "proteinG": 40.0,
+    "carbsG": 0.0,
+    "fatG": 38.0
+  },
+  {
+    "name": "Beef Cubes (500g)",
+    "category": "Beef",
+    "price": 325.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/02/unnamed-300x300.png",
+    "calories": 480,
+    "proteinG": 46.0,
+    "carbsG": 0.0,
+    "fatG": 32.0
+  },
+  {
+    "name": "Ground Beef (500g)",
+    "category": "Beef",
+    "price": 285.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/02/unnamed-4-300x300.png",
+    "calories": 510,
+    "proteinG": 42.0,
+    "carbsG": 0.0,
+    "fatG": 36.0
+  },
+  {
+    "name": "Beef Short Ribs (500g)",
+    "category": "Beef",
+    "price": 325.00,
+    "imageUrl": "https://thegoodmeat.ph/wp-content/uploads/2021/04/TGM_Ecomm_Beef_Slide-1_06-Beef-Short-Ribs-500g-300x300.jpg",
+    "calories": 550,
+    "proteinG": 38.0,
+    "carbsG": 0.0,
+    "fatG": 44.0
+  }
+]

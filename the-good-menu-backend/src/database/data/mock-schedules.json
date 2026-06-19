@@ -1,0 +1,22 @@
+[
+  { "userId": 1, "mealId": 5, "scheduledDate": "2026-06-23", "timeSlot": "Breakfast" },
+  { "userId": 1, "mealId": 1, "scheduledDate": "2026-06-23", "timeSlot": "Lunch" },
+
+  { "userId": 1, "mealId": 5, "scheduledDate": "2026-06-24", "timeSlot": "Breakfast" },
+  { "userId": 1, "mealId": 4, "scheduledDate": "2026-06-24", "timeSlot": "Dinner" },
+
+  { "userId": 1, "mealId": 6, "scheduledDate": "2026-06-25", "timeSlot": "Lunch" },
+  { "userId": 1, "mealId": 3, "scheduledDate": "2026-06-25", "timeSlot": "Dinner" },
+
+  { "userId": 1, "mealId": 7, "scheduledDate": "2026-06-26", "timeSlot": "Lunch" },
+  { "userId": 1, "mealId": 1, "scheduledDate": "2026-06-26", "timeSlot": "Dinner" },
+
+  { "userId": 1, "mealId": 5, "scheduledDate": "2026-06-27", "timeSlot": "Breakfast" },
+  { "userId": 1, "mealId": 2, "scheduledDate": "2026-06-27", "timeSlot": "Lunch" },
+
+  { "userId": 1, "mealId": 6, "scheduledDate": "2026-06-28", "timeSlot": "Lunch" },
+  { "userId": 1, "mealId": 4, "scheduledDate": "2026-06-28", "timeSlot": "Dinner" },
+
+  { "userId": 1, "mealId": 3, "scheduledDate": "2026-06-29", "timeSlot": "Lunch" },
+  { "userId": 1, "mealId": 7, "scheduledDate": "2026-06-29", "timeSlot": "Dinner" }
+]

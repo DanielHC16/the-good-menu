@@ -1,0 +1,117 @@
+[
+  {
+    "userId": 1,
+    "name": "Classic Pork Adobo",
+    "preparationGuide": "Step 1: Cut the Pork BBQ Belly into 1-inch cubes. Step 2: In a large pot, combine pork, soy sauce, vinegar, crushed garlic, bay leaves, and whole peppercorns. Marinate for 15 minutes. Step 3: Bring to a boil over high heat, then reduce to medium-low and simmer for 40 minutes until pork is tender. Step 4: Remove pork and pan-fry in cooking oil until edges are browned and crispy. Step 5: Return pork to the sauce, toss to coat, and simmer for 5 more minutes. Step 6: Serve hot over steamed white rice.",
+    "ingredients": [
+      { "productId": 2, "quantity": "400g" },
+      { "productId": null, "quantity": "1/3 cup", "customIngredientName": "Soy Sauce" },
+      { "productId": null, "quantity": "1/4 cup", "customIngredientName": "White Cane Vinegar" },
+      { "productId": null, "quantity": "6 cloves, crushed", "customIngredientName": "Garlic" },
+      { "productId": null, "quantity": "3 pieces", "customIngredientName": "Dried Bay Leaves" },
+      { "productId": null, "quantity": "1 tbsp", "customIngredientName": "Whole Black Peppercorns" },
+      { "productId": null, "quantity": "2 tbsp", "customIngredientName": "Cooking Oil" },
+      { "productId": null, "quantity": "2 cups", "customIngredientName": "Steamed White Rice" }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Chicken Sopas",
+    "preparationGuide": "Step 1: Boil chicken breast in 6 cups of water for 20 minutes. Remove, shred the meat, and reserve the broth. Step 2: In a separate pot, sauté garlic and diced onion in butter until fragrant. Step 3: Add shredded carrots, diced celery, and sliced cabbage; cook for 3 minutes. Step 4: Pour in the reserved chicken broth, add elbow macaroni, and cook for 10 minutes until pasta is al dente. Step 5: Stir in evaporated milk and the shredded chicken. Season with salt and pepper. Step 6: Simmer on low heat for 5 minutes. Serve warm.",
+    "ingredients": [
+      { "productId": 8, "quantity": "400g" },
+      { "productId": null, "quantity": "1 cup", "customIngredientName": "Elbow Macaroni" },
+      { "productId": null, "quantity": "1 cup", "customIngredientName": "Evaporated Milk" },
+      { "productId": null, "quantity": "1 medium, diced", "customIngredientName": "Onion" },
+      { "productId": null, "quantity": "4 cloves, minced", "customIngredientName": "Garlic" },
+      { "productId": null, "quantity": "1 large, shredded", "customIngredientName": "Carrot" },
+      { "productId": null, "quantity": "2 stalks, diced", "customIngredientName": "Celery" },
+      { "productId": null, "quantity": "1/4 head, sliced", "customIngredientName": "Cabbage" },
+      { "productId": null, "quantity": "2 tbsp", "customIngredientName": "Butter" },
+      { "productId": null, "quantity": "6 cups", "customIngredientName": "Water" },
+      { "productId": null, "quantity": "to taste", "customIngredientName": "Salt and Pepper" }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Sizzling Pork Sisig",
+    "preparationGuide": "Step 1: Pan-fry the Pork Sisig pack in a hot skillet with cooking oil for 6-8 minutes until crispy and heated through. Step 2: While frying, dice the onion and mince the chili peppers. Step 3: Push the sisig to one side, sauté onion and chili until softened. Step 4: Mix everything together, squeeze calamansi juice over the top, and season with soy sauce. Step 5: Crack a raw egg on top and mix rapidly on high heat until the egg is just set. Step 6: Transfer to a sizzling plate and serve immediately with steamed rice.",
+    "ingredients": [
+      { "productId": 4, "quantity": "200g" },
+      { "productId": null, "quantity": "1 medium, diced", "customIngredientName": "Onion" },
+      { "productId": null, "quantity": "2 pieces", "customIngredientName": "Red Chili Peppers" },
+      { "productId": null, "quantity": "3 pieces", "customIngredientName": "Calamansi" },
+      { "productId": null, "quantity": "1 tbsp", "customIngredientName": "Soy Sauce" },
+      { "productId": null, "quantity": "1 piece", "customIngredientName": "Egg" },
+      { "productId": null, "quantity": "1 tbsp", "customIngredientName": "Cooking Oil" },
+      { "productId": null, "quantity": "2 cups", "customIngredientName": "Steamed White Rice" }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Beef Caldereta",
+    "preparationGuide": "Step 1: Cut beef cubes into bite-sized pieces if needed. Step 2: Sauté garlic, onion, and tomatoes in cooking oil in a heavy-bottomed pot until softened. Step 3: Add the beef cubes and sear on all sides for 5 minutes. Step 4: Pour in tomato sauce and enough water to cover the beef. Bring to a boil, then simmer for 1 hour until beef is fork-tender. Step 5: Add cubed potatoes, sliced bell peppers, and green peas. Cook for 15 minutes. Step 6: Stir in liver spread to thicken the sauce. Season with salt and pepper. Step 7: Serve hot over steamed rice.",
+    "ingredients": [
+      { "productId": 13, "quantity": "500g" },
+      { "productId": null, "quantity": "1 cup", "customIngredientName": "Tomato Sauce" },
+      { "productId": null, "quantity": "2 medium, cubed", "customIngredientName": "Potatoes" },
+      { "productId": null, "quantity": "1 large, sliced", "customIngredientName": "Red Bell Pepper" },
+      { "productId": null, "quantity": "1 large, sliced", "customIngredientName": "Green Bell Pepper" },
+      { "productId": null, "quantity": "1/2 cup", "customIngredientName": "Green Peas" },
+      { "productId": null, "quantity": "3 tbsp", "customIngredientName": "Liver Spread" },
+      { "productId": null, "quantity": "1 medium, diced", "customIngredientName": "Onion" },
+      { "productId": null, "quantity": "4 cloves, minced", "customIngredientName": "Garlic" },
+      { "productId": null, "quantity": "2 medium, diced", "customIngredientName": "Tomatoes" },
+      { "productId": null, "quantity": "2 tbsp", "customIngredientName": "Cooking Oil" },
+      { "productId": null, "quantity": "2 cups", "customIngredientName": "Water" },
+      { "productId": null, "quantity": "to taste", "customIngredientName": "Salt and Pepper" }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Tapsilog (Pork Tapa with Egg and Rice)",
+    "preparationGuide": "Step 1: Pan-fry the Pork Tapa in a skillet with cooking oil over medium-high heat for 4-5 minutes per side until caramelized and fully cooked. Step 2: In a separate pan, fry eggs sunny-side up in cooking oil until the whites are set but the yolk is still runny. Step 3: Prepare garlic fried rice by sautéing minced garlic in oil until golden, then tossing with day-old steamed rice and seasoning with salt. Step 4: Plate the tapa, fried egg, and garlic rice together. Step 5: Serve with a small dish of vinegar with diced onion on the side for dipping.",
+    "ingredients": [
+      { "productId": 5, "quantity": "400g" },
+      { "productId": null, "quantity": "2 pieces", "customIngredientName": "Eggs" },
+      { "productId": null, "quantity": "3 cups", "customIngredientName": "Day-old Steamed Rice" },
+      { "productId": null, "quantity": "6 cloves, minced", "customIngredientName": "Garlic" },
+      { "productId": null, "quantity": "3 tbsp", "customIngredientName": "Cooking Oil" },
+      { "productId": null, "quantity": "2 tbsp", "customIngredientName": "White Cane Vinegar" },
+      { "productId": null, "quantity": "to taste", "customIngredientName": "Salt" }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Bacon and Ground Beef Bolognese Pasta",
+    "preparationGuide": "Step 1: Cook spaghetti in salted boiling water according to package directions until al dente; drain and set aside. Step 2: Dice the smoked bacon into small strips and fry in a deep pan until crispy. Remove bacon and reserve the rendered fat. Step 3: In the same pan with bacon fat, sauté garlic and onion until translucent. Step 4: Add the ground beef and cook over high heat, breaking it apart, until browned (about 8 minutes). Step 5: Pour in tomato sauce and season with dried oregano, salt, and pepper. Simmer for 20 minutes on low heat. Step 6: Fold in the cooked pasta and crispy bacon. Toss to combine. Step 7: Serve topped with grated parmesan cheese.",
+    "ingredients": [
+      { "productId": 7, "quantity": "200g" },
+      { "productId": 14, "quantity": "500g" },
+      { "productId": null, "quantity": "250g", "customIngredientName": "Spaghetti Noodles" },
+      { "productId": null, "quantity": "1 cup", "customIngredientName": "Tomato Sauce" },
+      { "productId": null, "quantity": "1 medium, diced", "customIngredientName": "Onion" },
+      { "productId": null, "quantity": "4 cloves, minced", "customIngredientName": "Garlic" },
+      { "productId": null, "quantity": "1 tsp", "customIngredientName": "Dried Oregano" },
+      { "productId": null, "quantity": "3 tbsp", "customIngredientName": "Grated Parmesan Cheese" },
+      { "productId": null, "quantity": "to taste", "customIngredientName": "Salt and Pepper" }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Chicken Tinola",
+    "preparationGuide": "Step 1: Cut the chicken leg quarters into serving pieces through the joints. Step 2: In a large pot, sauté ginger slices, garlic, and onion in cooking oil until fragrant. Step 3: Add the chicken pieces and cook for 5 minutes, turning occasionally, until lightly browned on all sides. Step 4: Pour in water or rice wash and bring to a boil. Reduce heat to medium and simmer for 25 minutes until chicken is tender. Step 5: Add chayote wedges (or green papaya) and cook for 8 minutes until slightly translucent. Step 6: Add moringa leaves (malunggay) and cook for 1 more minute. Step 7: Season with fish sauce to taste. Serve hot with steamed rice.",
+    "ingredients": [
+      { "productId": 9, "quantity": "860g" },
+      { "productId": null, "quantity": "1 thumb-sized piece, sliced", "customIngredientName": "Ginger" },
+      { "productId": null, "quantity": "1 medium, quartered", "customIngredientName": "Onion" },
+      { "productId": null, "quantity": "3 cloves, crushed", "customIngredientName": "Garlic" },
+      { "productId": null, "quantity": "2 medium, cut into wedges", "customIngredientName": "Chayote (Sayote)" },
+      { "productId": null, "quantity": "2 cups", "customIngredientName": "Moringa Leaves (Malunggay)" },
+      { "productId": null, "quantity": "6 cups", "customIngredientName": "Water" },
+      { "productId": null, "quantity": "2 tbsp", "customIngredientName": "Fish Sauce (Patis)" },
+      { "productId": null, "quantity": "1 tbsp", "customIngredientName": "Cooking Oil" },
+      { "productId": null, "quantity": "2 cups", "customIngredientName": "Steamed White Rice" }
+    ]
+  }
+]

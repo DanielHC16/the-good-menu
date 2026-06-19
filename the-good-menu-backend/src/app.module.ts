@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuditLogsModule } from './audit-logs/audit-logs.module';
 import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './database/database.module';
 import { MealsModule } from './meals/meals.module';
 import { ProductsModule } from './products/products.module';
 import { SchedulesModule } from './schedules/schedules.module';
@@ -23,6 +24,7 @@ import { SchedulesModule } from './schedules/schedules.module';
     MealsModule,
     SchedulesModule,
     AuditLogsModule,
+    DatabaseModule,
   ],
   controllers: [],
   providers: [],

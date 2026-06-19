@@ -1,0 +1,50 @@
+[
+  {
+    "woocommerce-LoopProduct-link href": "https://thegoodmeat.ph/product/breasts-860g/",
+    "attachment-woocommerce_thumbnail src": "https://thegoodmeat.ph/wp-content/uploads/2020/09/TGM_Ecomm_Chicken_03-Chicken-Breast-860g-1-300x300.jpg",
+    "woocommerce-loop-product__title": "Bounty Fresh Breast Chicken Cut-ups (860g)",
+    "woocommerce-Price-amount": "₱285.00",
+    "screen-reader-text": "Bounty Fresh Breast Chicken Cut-ups (860g) quantity",
+    "button href": "https://thegoodmeat.ph/product-category/chicken/?add-to-cart=236012"
+  },
+  {
+    "woocommerce-LoopProduct-link href": "https://thegoodmeat.ph/product/bounty-fresh-chicken-leg-quarters-860g-copy/",
+    "attachment-woocommerce_thumbnail src": "https://thegoodmeat.ph/wp-content/uploads/2021/01/TGM_Ecomm_Chicken_05-Leg-Quarters-800g-1-300x300.jpg",
+    "woocommerce-loop-product__title": "Bounty Fresh Chicken Leg Quarters (860g)",
+    "woocommerce-Price-amount": "₱285.00",
+    "screen-reader-text": "Bounty Fresh Chicken Leg Quarters (860g) quantity",
+    "button href": "https://thegoodmeat.ph/product-category/chicken/?add-to-cart=244305"
+  },
+  {
+    "woocommerce-LoopProduct-link href": "https://thegoodmeat.ph/product/drumsticks-860g/",
+    "attachment-woocommerce_thumbnail src": "https://thegoodmeat.ph/wp-content/uploads/2020/09/TGM_Ecomm_Chicken_06-Drumstick-Chicken-860g-1-300x300.jpg",
+    "woocommerce-loop-product__title": "Bounty Fresh Drumstick Chicken Cut-ups (860g)",
+    "woocommerce-Price-amount": "₱285.00",
+    "screen-reader-text": "Bounty Fresh Drumstick Chicken Cut-ups (860g) quantity",
+    "button href": "https://thegoodmeat.ph/product-category/chicken/?add-to-cart=236015"
+  },
+  {
+    "woocommerce-LoopProduct-link href": "https://thegoodmeat.ph/product/thighs-860g/",
+    "attachment-woocommerce_thumbnail src": "https://thegoodmeat.ph/wp-content/uploads/2020/09/TGM_Ecomm_Chicken_04-Thigh-Chicken-860g-2-300x300.jpg",
+    "woocommerce-loop-product__title": "Bounty Fresh Thigh Chicken Cut-ups (860g)",
+    "woocommerce-Price-amount": "₱285.00",
+    "screen-reader-text": "Bounty Fresh Thigh Chicken Cut-ups (860g) quantity",
+    "button href": "https://thegoodmeat.ph/product-category/chicken/?add-to-cart=236011"
+  },
+  {
+    "woocommerce-LoopProduct-link href": "https://thegoodmeat.ph/product/wings-860g/",
+    "attachment-woocommerce_thumbnail src": "https://thegoodmeat.ph/wp-content/uploads/2020/09/TGM_Ecomm_Chicken_07-Wing-Chicken-860g-1-300x300.jpg",
+    "woocommerce-loop-product__title": "Bounty Fresh Wing Chicken Cut-ups (860g)",
+    "woocommerce-Price-amount": "₱285.00",
+    "screen-reader-text": "Bounty Fresh Wing Chicken Cut-ups (860g) quantity",
+    "button href": "https://thegoodmeat.ph/product-category/chicken/?add-to-cart=236013"
+  },
+  {
+    "woocommerce-LoopProduct-link href": "https://thegoodmeat.ph/product/tgm-whole-chicken-1kg/",
+    "attachment-woocommerce_thumbnail src": "https://thegoodmeat.ph/wp-content/uploads/2024/05/ssph.zone-1714552990-TGM_Ecomm_Chicken_01-Whole-Chicken-1kg-1-450x450-1-300x300.jpg",
+    "woocommerce-loop-product__title": "TGM Whole Dressed Chicken (1kg)",
+    "woocommerce-Price-amount": "₱265.00",
+    "screen-reader-text": "TGM Whole Dressed Chicken (1kg) quantity",
+    "button href": "https://thegoodmeat.ph/product-category/chicken/?add-to-cart=243615"
+  }
+]
