@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Base body styling using Aboitiz colors */
+  body {
+    @apply bg-aboitiz-bgLight text-aboitiz-textDark antialiased m-0;
+    font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Replicating the #root wrapper constraints from the Vite boilerplate */
+  #root {
+    @apply w-full max-w-[1126px] mx-auto min-h-screen flex flex-col text-center box-border;
+    /* Using a very subtle border based on the Aboitiz text color with low opacity */
+    border-inline: 1px solid theme('colors.aboitiz.textDark' / 10%);
+  }
+
+  /* Typography rules */
+  h1, h2 {
+    @apply font-medium text-aboitiz-textDark;
+  }
+
+  h1 {
+    @apply text-[36px] lg:text-[56px] tracking-tight my-5 lg:my-8;
+  }
+
+  h2 {
+    @apply text-[20px] lg:text-[24px] tracking-[max(-0.24px)] mb-2 leading-snug;
+  }
+
+  p {
+    @apply m-0;
+  }
+
+  /* Code block styling adapted to fit the earthy theme */
+  code, .counter {
+    @apply font-mono inline-flex rounded px-2 py-1 text-[15px] leading-snug;
+    /* Using the Aboitiz primary (olive) with high transparency for the background */
+    background: theme('colors.aboitiz.primary' / 10%);
+    color: theme('colors.aboitiz.earth');
+  }
+}
