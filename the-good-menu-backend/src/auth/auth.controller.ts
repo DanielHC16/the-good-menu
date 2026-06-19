@@ -7,31 +7,51 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('users')
+@Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.authService.create(createUserDto);
+  // ─── Authentication Endpoints ──────────────────────────────────────
+
+  @Post('register')
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(registerDto);
   }
 
-  @Get()
+  @Post('login')
+  async login(@Body() loginDto: LoginDto) {
+    const user = await this.authService.validateUser(
+      loginDto.email,
+      loginDto.password,
+    );
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid email or password.');
+    }
+
+    return this.authService.login(user);
+  }
+
+  // ─── User CRUD Endpoints ──────────────────────────────────────────
+
+  @Get('users')
   findAll() {
     return this.authService.findAll();
   }
 
-  @Get(':id')
+  @Get('users/:id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.authService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('users/:id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -39,7 +59,7 @@ export class AuthController {
     return this.authService.update(id, updateUserDto);
   }
 
-  @Delete(':id')
+  @Delete('users/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.authService.remove(id);
   }
