@@ -40,22 +40,22 @@ export class AuthService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const { password, ...userFields } = updateUserDto;
-    const passwordHash = password ? await bcrypt.hash(password, 10) : undefined;
-    const user = await this.usersRepository.preload({
-      id,
-      ...userFields,
-      ...(passwordHash ? { passwordHash } : {}),
-    });
+    const updatePayload: Record<string, unknown> = { ...userFields };
 
-    if (!user) {
-      throw new NotFoundException(`User #${id} was not found.`);
+    if (password) {
+      updatePayload.passwordHash = await bcrypt.hash(password, 10);
     }
 
-    return this.usersRepository.save(user);
+    await this.findOne(id); // Verify user exists (throws NotFoundException)
+    await this.usersRepository.update(id, updatePayload);
+
+    return this.findOne(id);
   }
 
   async remove(id: number) {
-    const user = await this.findOne(id);
-    return this.usersRepository.remove(user);
+    await this.findOne(id); // Verify user exists (throws NotFoundException)
+    await this.usersRepository.delete(id);
+
+    return { message: `Record #${id} successfully deleted.` };
   }
 }

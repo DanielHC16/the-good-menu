@@ -32,20 +32,16 @@ export class ProductsService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    const product = await this.productsRepository.preload({
-      id,
-      ...updateProductDto,
-    });
+    await this.findOne(id); // Verify product exists (throws NotFoundException)
+    await this.productsRepository.update(id, updateProductDto);
 
-    if (!product) {
-      throw new NotFoundException(`Product #${id} was not found.`);
-    }
-
-    return this.productsRepository.save(product);
+    return this.findOne(id);
   }
 
   async remove(id: number) {
-    const product = await this.findOne(id);
-    return this.productsRepository.softRemove(product);
+    await this.findOne(id); // Verify product exists (throws NotFoundException)
+    await this.productsRepository.softDelete(id);
+
+    return { message: `Record #${id} successfully deleted.` };
   }
 }

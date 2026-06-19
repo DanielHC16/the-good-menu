@@ -55,22 +55,28 @@ export class MealsService {
   }
 
   async update(id: number, updateMealDto: UpdateMealDto) {
-    const meal = await this.findOne(id);
+    await this.findOne(id); // Verify meal exists (throws NotFoundException)
     const { ingredients, ...mealFields } = updateMealDto;
 
-    Object.assign(meal, mealFields);
+    if (Object.keys(mealFields).length > 0) {
+      await this.mealsRepository.update(id, mealFields);
+    }
 
     if (ingredients) {
       await this.mealIngredientsRepository.delete({ mealId: id });
-      meal.ingredients = this.mealIngredientsRepository.create(ingredients);
+      const newIngredients = this.mealIngredientsRepository.create(
+        ingredients.map((ing) => ({ ...ing, mealId: id })),
+      );
+      await this.mealIngredientsRepository.save(newIngredients);
     }
 
-    await this.mealsRepository.save(meal);
     return this.findOne(id);
   }
 
   async remove(id: number) {
-    const meal = await this.findOne(id);
-    return this.mealsRepository.softRemove(meal);
+    await this.findOne(id); // Verify meal exists (throws NotFoundException)
+    await this.mealsRepository.softDelete(id);
+
+    return { message: `Record #${id} successfully deleted.` };
   }
 }

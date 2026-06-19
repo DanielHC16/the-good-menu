@@ -41,21 +41,16 @@ export class SchedulesService {
   }
 
   async update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    const schedule = await this.schedulesRepository.preload({
-      id,
-      ...updateScheduleDto,
-    });
+    await this.findOne(id); // Verify schedule exists (throws NotFoundException)
+    await this.schedulesRepository.update(id, updateScheduleDto);
 
-    if (!schedule) {
-      throw new NotFoundException(`Schedule #${id} was not found.`);
-    }
-
-    await this.schedulesRepository.save(schedule);
     return this.findOne(id);
   }
 
   async remove(id: number) {
-    const schedule = await this.findOne(id);
-    return this.schedulesRepository.remove(schedule);
+    await this.findOne(id); // Verify schedule exists (throws NotFoundException)
+    await this.schedulesRepository.delete(id);
+
+    return { message: `Record #${id} successfully deleted.` };
   }
 }
