@@ -14,6 +14,8 @@ import AppLayout from './components/layout/AppLayout';
 import LoginPage from './features/auth/LoginPage';
 import RegisterPage from './features/auth/RegisterPage';
 import AuditLogsPage from './features/audit-logs/AuditLogsPage';
+import ProductsPage from './features/products/ProductsPage';
+import MealsPage from './features/meals/MealsPage';
 
 // ─── Placeholder Pages (to be replaced with real feature components) ─────────
 const DashboardPage = () => (
@@ -30,19 +32,7 @@ const PlannerPage = () => (
   </div>
 );
 
-const MealsPage = () => (
-  <div className="p-6">
-    <h1>Meals</h1>
-    <p className="text-aboitiz-primary mt-2">Create and manage your meal recipes.</p>
-  </div>
-);
 
-const ProductsPage = () => (
-  <div className="p-6">
-    <h1>Products</h1>
-    <p className="text-aboitiz-primary mt-2">Browse the Aboitiz ingredient catalog.</p>
-  </div>
-);
 
 function App() {
   return (
