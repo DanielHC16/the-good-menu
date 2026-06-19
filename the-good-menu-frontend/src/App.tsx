@@ -16,21 +16,8 @@ import RegisterPage from './features/auth/RegisterPage';
 import AuditLogsPage from './features/audit-logs/AuditLogsPage';
 import ProductsPage from './features/products/ProductsPage';
 import MealsPage from './features/meals/MealsPage';
-
-// ─── Placeholder Pages (to be replaced with real feature components) ─────────
-const DashboardPage = () => (
-  <div className="p-6">
-    <h1>Dashboard</h1>
-    <p className="text-aboitiz-primary mt-2">Welcome to The Good Menu. Your weekly meal planner awaits.</p>
-  </div>
-);
-
-const PlannerPage = () => (
-  <div className="p-6">
-    <h1>Meal Planner</h1>
-    <p className="text-aboitiz-primary mt-2">Schedule your meals across the week.</p>
-  </div>
-);
+import PlannerPage from './features/planner/PlannerPage';
+import DashboardPage from './features/dashboard/DashboardPage';
 
 
 
