@@ -17,11 +17,11 @@ export class SchedulesService {
     return this.schedulesRepository.save(schedule);
   }
 
-  findAll() {
-    return this.schedulesRepository.find({
-      relations: {
-        meal: true,
-      },
+  async findAll(userId: number) {
+    return await this.schedulesRepository.find({
+      where: { userId: userId },
+      // Add the nested relations here:
+      relations: ['meal', 'meal.ingredients', 'meal.ingredients.product'], 
     });
   }
 

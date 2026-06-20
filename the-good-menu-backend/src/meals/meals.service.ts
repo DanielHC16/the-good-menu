@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, IsNull } from 'typeorm';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
 import { MealIngredient } from './entities/meal-ingredient.entity';
@@ -28,8 +28,12 @@ export class MealsService {
     return this.mealsRepository.save(meal);
   }
 
-  findAll() {
+  findAll(userId: number) {
     return this.mealsRepository.find({
+      where: [
+        { userId: userId },
+        { userId: IsNull() },
+      ],
       relations: {
         ingredients: {
           product: true,

@@ -7,23 +7,28 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { MealsService } from './meals.service';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('meals')
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
   @Post()
-  create(@Body() createMealDto: CreateMealDto) {
+  create(@Body() createMealDto: CreateMealDto, @Request() req: any) {
+    createMealDto.userId = req.user.id ?? req.user.userId;
     return this.mealsService.create(createMealDto);
   }
 
   @Get()
-  findAll() {
-    return this.mealsService.findAll();
+  findAll(@Request() req: any) {
+    return this.mealsService.findAll(req.user.id ?? req.user.userId);
   }
 
   @Get(':id')
