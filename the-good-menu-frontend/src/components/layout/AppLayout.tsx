@@ -11,15 +11,16 @@
 import { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { LayoutDashboard, CalendarDays, Utensils, Beef, ShieldAlert, LogOut, Leaf } from 'lucide-react';
 
 // ─── Navigation Items ────────────────────────────────────────────────────────
 
 const navItems = [
-  { to: '/',            label: 'Dashboard',  icon: '📊' },
-  { to: '/planner',     label: 'Planner',    icon: '📅' },
-  { to: '/meals',       label: 'Meals',      icon: '🍽️' },
-  { to: '/products',    label: 'Products',   icon: '🥩' },
-  { to: '/audit-logs',  label: 'Audit Logs', icon: '📋' },
+  { to: '/',            label: 'Dashboard',  icon: LayoutDashboard },
+  { to: '/planner',     label: 'Planner',    icon: CalendarDays },
+  { to: '/meals',       label: 'Meals',      icon: Utensils },
+  { to: '/products',    label: 'Ingredients',   icon: Beef },
+  { to: '/audit-logs',  label: 'Audit Logs', icon: ShieldAlert },
 ];
 
 export default function AppLayout() {
@@ -49,8 +50,9 @@ export default function AppLayout() {
       >
         {/* Brand Header */}
         <div className="px-6 py-6 border-b border-white/10">
-          <h2 className="text-lg font-semibold text-white tracking-tight">
-            🍃 The Good Menu
+          <h2 className="text-lg font-semibold text-white flex items-center gap-2 tracking-tight">
+            <Leaf className="w-5 h-5 text-aboitiz-secondary" />
+            The Good Menu
           </h2>
           <p className="text-xs text-aboitiz-secondary mt-1 opacity-80">
             Aboitiz Foods Meal Planner
@@ -59,24 +61,27 @@ export default function AppLayout() {
 
         {/* Navigation Links */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              onClick={() => setSidebarOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-aboitiz-primary/30 text-aboitiz-secondary'
-                    : 'text-white/70 hover:bg-white/5 hover:text-white'
-                }`
-              }
-            >
-              <span className="text-base">{item.icon}</span>
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                onClick={() => setSidebarOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-aboitiz-primary/30 text-aboitiz-secondary'
+                      : 'text-white/70 hover:bg-white/5 hover:text-white'
+                  }`
+                }
+              >
+                <Icon className="w-5 h-5 flex-shrink-0" />
+                {item.label}
+              </NavLink>
+            );
+          })}
         </nav>
 
         {/* User Info & Logout */}
@@ -93,7 +98,8 @@ export default function AppLayout() {
                        bg-aboitiz-danger/20 text-aboitiz-danger hover:bg-aboitiz-danger/30
                        transition-colors duration-200 cursor-pointer"
           >
-            ⎋ Logout
+            <LogOut className="w-4 h-4" />
+            Logout
           </button>
         </div>
       </aside>

@@ -9,6 +9,7 @@ import { useState } from 'react';
 import MealList from './components/MealList';
 import MealFormModal from './components/MealFormModal';
 import type { Meal } from '../../types';
+import { Utensils } from 'lucide-react';
 
 export default function MealsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +35,10 @@ export default function MealsPage() {
       {/* Page Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-aboitiz-textDark">🍽️ Meal Recipes</h1>
+          <h1 className="text-2xl font-semibold text-aboitiz-textDark flex items-center gap-2">
+            <Utensils className="w-6 h-6 text-aboitiz-primary" />
+            Meal Recipes
+          </h1>
           <p className="text-sm text-aboitiz-primary mt-1">
             Create and manage meal recipes using Aboitiz Food products as ingredients.
           </p>

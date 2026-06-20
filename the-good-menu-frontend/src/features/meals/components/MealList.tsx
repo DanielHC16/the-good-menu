@@ -13,6 +13,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getMeals, deleteMeal } from '../api/mealApi';
 import type { Meal, MealIngredient } from '../../../types';
+import { Utensils } from 'lucide-react';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -196,7 +197,9 @@ export default function MealList({ onEdit, onAddNew }: MealListProps) {
   if (!meals || meals.length === 0) {
     return (
       <div className="bg-white/60 rounded-xl border border-aboitiz-primary/10 p-16 text-center">
-        <div className="text-5xl mb-4">🍽️</div>
+        <div className="mb-4 flex justify-center">
+          <Utensils className="w-12 h-12 text-aboitiz-primary/40" />
+        </div>
         <p className="text-lg font-semibold text-aboitiz-textDark">No meals found</p>
         <p className="text-sm text-aboitiz-primary mt-1 mb-6">
           Create your first meal recipe to get started planning your menu.

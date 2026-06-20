@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { getSchedules } from '../planner/api/scheduleApi';
 import { getProducts } from '../products/api/productApi';
 import type { Schedule, Product, TimeSlot } from '../../types';
+import { BookOpen, CalendarCheck, Clock, Utensils, Sunrise, Sun, Moon, UtensilsCrossed, LayoutDashboard } from 'lucide-react';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -21,10 +22,10 @@ const TIME_SLOT_ORDER: Record<TimeSlot, number> = {
   Dinner: 2,
 };
 
-const TIME_SLOT_EMOJI: Record<TimeSlot, string> = {
-  Breakfast: '🌅',
-  Lunch: '☀️',
-  Dinner: '🌙',
+const TIME_SLOT_ICONS: Record<TimeSlot, React.ComponentType<{ className?: string }>> = {
+  Breakfast: Sunrise,
+  Lunch: Sun,
+  Dinner: Moon,
 };
 
 const TIME_SLOT_COLORS: Record<TimeSlot, { bg: string; text: string; border: string }> = {
@@ -163,7 +164,10 @@ export default function DashboardPage() {
     <div className="space-y-8" id="dashboard-page">
       {/* Welcome Header */}
       <div>
-        <h1 className="text-2xl font-semibold text-aboitiz-textDark">📊 Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-aboitiz-textDark flex items-center gap-2">
+          <LayoutDashboard className="w-6 h-6 text-aboitiz-primary" />
+          Dashboard
+        </h1>
         <p className="text-sm text-aboitiz-primary mt-1">
           Welcome back. Here is your overview and meal schedule for today,{' '}
           <span className="font-semibold">
@@ -194,8 +198,8 @@ export default function DashboardPage() {
               Ingredients configured
             </p>
           </div>
-          <div className="text-3xl bg-aboitiz-secondary/15 p-3.5 rounded-2xl text-aboitiz-primary/80 group-hover:bg-aboitiz-secondary/25 transition-colors">
-            🥩
+          <div className="bg-aboitiz-secondary/15 p-3 rounded-2xl text-aboitiz-primary/80 group-hover:bg-aboitiz-secondary/25 transition-colors flex items-center justify-center">
+            <BookOpen className="w-8 h-8 text-aboitiz-primary" />
           </div>
         </div>
 
@@ -218,8 +222,8 @@ export default function DashboardPage() {
               Weekly scheduled meals
             </p>
           </div>
-          <div className="text-3xl bg-aboitiz-secondary/15 p-3.5 rounded-2xl text-aboitiz-primary/80 group-hover:bg-aboitiz-secondary/25 transition-colors">
-            📅
+          <div className="bg-aboitiz-secondary/15 p-3 rounded-2xl text-aboitiz-primary/80 group-hover:bg-aboitiz-secondary/25 transition-colors flex items-center justify-center">
+            <CalendarCheck className="w-8 h-8 text-aboitiz-primary" />
           </div>
         </div>
 
@@ -242,8 +246,8 @@ export default function DashboardPage() {
               Meals scheduled today
             </p>
           </div>
-          <div className="text-3xl bg-aboitiz-secondary/15 p-3.5 rounded-2xl text-aboitiz-primary/80 group-hover:bg-aboitiz-secondary/25 transition-colors">
-            🍽️
+          <div className="bg-aboitiz-secondary/15 p-3 rounded-2xl text-aboitiz-primary/80 group-hover:bg-aboitiz-secondary/25 transition-colors flex items-center justify-center">
+            <Clock className="w-8 h-8 text-aboitiz-primary" />
           </div>
         </div>
       </div>
@@ -252,7 +256,8 @@ export default function DashboardPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-aboitiz-textDark flex items-center gap-2">
-            <span>🍽️</span> Today's Menu Plan
+            <Utensils className="w-5 h-5 text-aboitiz-primary" />
+            Today's Menu Plan
           </h2>
           {todaysMealsCount > 0 && (
             <button
@@ -270,7 +275,9 @@ export default function DashboardPage() {
             id="dashboard-today-empty-state"
             className="bg-white/60 rounded-2xl border border-aboitiz-primary/10 p-12 text-center"
           >
-            <div className="text-5xl mb-4">🥗</div>
+            <div className="mb-4 flex justify-center">
+              <UtensilsCrossed className="w-12 h-12 text-aboitiz-primary/40" />
+            </div>
             <p className="text-base font-semibold text-aboitiz-textDark">
               You have no meals scheduled for today
             </p>
@@ -298,6 +305,7 @@ export default function DashboardPage() {
               const prepGuide = s.meal?.preparationGuide || '';
               const guidePreview =
                 prepGuide.length > 120 ? `${prepGuide.slice(0, 120)}…` : prepGuide;
+              const TimeSlotIcon = TIME_SLOT_ICONS[s.timeSlot];
 
               return (
                 <div
@@ -311,7 +319,7 @@ export default function DashboardPage() {
                     <span
                       className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${badgeStyle.bg} ${badgeStyle.text} ${badgeStyle.border}`}
                     >
-                      {TIME_SLOT_EMOJI[s.timeSlot]} {s.timeSlot}
+                      <TimeSlotIcon className="w-3.5 h-3.5 flex-shrink-0" /> {s.timeSlot}
                     </span>
                     <span className="text-[10px] text-aboitiz-primary bg-aboitiz-primary/5 px-2 py-0.5 rounded-md font-medium">
                       ID: #{s.id}

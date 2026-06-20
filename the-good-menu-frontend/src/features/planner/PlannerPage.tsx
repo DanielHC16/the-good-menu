@@ -9,6 +9,7 @@ import { useState } from 'react';
 import ScheduleList from './components/ScheduleList';
 import ScheduleFormModal from './components/ScheduleFormModal';
 import type { Schedule } from '../../types';
+import { CalendarDays } from 'lucide-react';
 
 export default function PlannerPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +35,10 @@ export default function PlannerPage() {
       {/* Page Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-aboitiz-textDark">📅 Weekly Planner</h1>
+          <h1 className="text-2xl font-semibold text-aboitiz-textDark flex items-center gap-2">
+            <CalendarDays className="w-6 h-6 text-aboitiz-primary" />
+            Weekly Planner
+          </h1>
           <p className="text-sm text-aboitiz-primary mt-1">
             Schedule your meals across the week and stay on track with your nutrition goals.
           </p>

@@ -13,6 +13,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getSchedules, deleteSchedule } from '../api/scheduleApi';
 import type { Schedule, TimeSlot } from '../../../types';
+import { Sunrise, Sun, Moon, CalendarDays, CalendarX } from 'lucide-react';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -29,10 +30,10 @@ const TIME_SLOT_ORDER: Record<TimeSlot, number> = {
   Dinner: 2,
 };
 
-const TIME_SLOT_EMOJI: Record<TimeSlot, string> = {
-  Breakfast: '🌅',
-  Lunch: '☀️',
-  Dinner: '🌙',
+const TIME_SLOT_ICONS: Record<TimeSlot, React.ComponentType<{ className?: string }>> = {
+  Breakfast: Sunrise,
+  Lunch: Sun,
+  Dinner: Moon,
 };
 
 function formatDate(dateStr: string): string {
@@ -75,12 +76,13 @@ function TimeSlotBadge({ slot }: { slot: TimeSlot }) {
     Lunch: 'bg-aboitiz-secondary/25 text-aboitiz-textDark',
     Dinner: 'bg-aboitiz-primary/15 text-aboitiz-primary',
   };
+  const Icon = TIME_SLOT_ICONS[slot];
 
   return (
     <span
       className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${colors[slot]}`}
     >
-      {TIME_SLOT_EMOJI[slot]} {slot}
+      <Icon className="w-3.5 h-3.5 flex-shrink-0" /> {slot}
     </span>
   );
 }
@@ -156,7 +158,9 @@ export default function ScheduleList({ onEdit, onAddNew }: ScheduleListProps) {
   if (!schedules || schedules.length === 0) {
     return (
       <div className="bg-white/60 rounded-xl border border-aboitiz-primary/10 p-16 text-center">
-        <div className="text-5xl mb-4">📅</div>
+        <div className="mb-4 flex justify-center">
+          <CalendarX className="w-12 h-12 text-aboitiz-primary/40" />
+        </div>
         <p className="text-lg font-semibold text-aboitiz-textDark">No meals scheduled yet</p>
         <p className="text-sm text-aboitiz-primary mt-1 mb-6">
           Start planning your week by scheduling your first meal.
@@ -188,8 +192,9 @@ export default function ScheduleList({ onEdit, onAddNew }: ScheduleListProps) {
         >
           {/* Date Header */}
           <div className="px-5 py-4 border-b border-aboitiz-primary/10 bg-gradient-to-r from-aboitiz-earth/90 to-aboitiz-earth">
-            <h3 className="text-sm font-semibold text-white tracking-wide">
-              📆 {formatDate(dateKey)}
+            <h3 className="text-sm font-semibold text-white tracking-wide flex items-center gap-2">
+              <CalendarDays className="w-4 h-4 text-white/90" />
+              {formatDate(dateKey)}
             </h3>
           </div>
 

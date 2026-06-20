@@ -9,6 +9,7 @@ import { useState } from 'react';
 import ProductList from './components/ProductList';
 import ProductFormModal from './components/ProductFormModal';
 import type { Product } from '../../types';
+import { Beef } from 'lucide-react';
 
 export default function ProductsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,9 +35,12 @@ export default function ProductsPage() {
       {/* Page Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-aboitiz-textDark">🥩 Ingredient Catalog</h1>
+          <h1 className="text-2xl font-semibold text-aboitiz-textDark flex items-center gap-2">
+            <Beef className="w-6 h-6 text-aboitiz-primary" />
+            Ingredient Catalog
+          </h1>
           <p className="text-sm text-aboitiz-primary mt-1">
-            Manage Aboitiz Food products used across your meal recipes.
+            Manage Aboitiz Food products and ingredients used across your meal recipes.
           </p>
         </div>
 
