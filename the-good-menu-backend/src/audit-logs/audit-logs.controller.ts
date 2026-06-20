@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { AuditLogsService } from './audit-logs.service';
 import { CreateAuditLogDto } from './dto/create-audit-log.dto';
@@ -22,8 +23,11 @@ export class AuditLogsController {
   }
 
   @Get()
-  findAll() {
-    return this.auditLogsService.findAll();
+  findAll(
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '10',
+  ) {
+    return this.auditLogsService.findAll(parseInt(page, 10), parseInt(limit, 10));
   }
 
   @Get(':id')

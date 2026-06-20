@@ -19,9 +19,22 @@ export class AuditLogsService {
     return await this.auditLogRepository.save(newLog);
   }
 
-  // Fetches all logs from the database
-  async findAll(): Promise<AuditLog[]> {
-    return await this.auditLogRepository.find();
+  // Fetches all logs from the database (paginated)
+  async findAll(page: number, limit: number): Promise<{
+    data: AuditLog[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  }> {
+    const skip = (page - 1) * limit;
+    const [logs, total] = await this.auditLogRepository.findAndCount({
+      skip,
+      take: limit,
+      order: { id: 'DESC' },
+    });
+    const totalPages = Math.ceil(total / limit);
+    return { data: logs, total, page, limit, totalPages };
   }
 
   // Fetches a single log by its ID

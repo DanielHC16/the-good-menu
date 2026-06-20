@@ -9,8 +9,6 @@
 //   • SOFT_DELETE → aboitiz-danger (red, muted)
 // =============================================================================
 
-import { useQuery } from '@tanstack/react-query';
-import { getAuditLogs } from '../api/getAuditLogs';
 import type { AuditLog } from '../../../types';
 
 // ─── Action Badge Color Mapping ──────────────────────────────────────────────
@@ -46,17 +44,21 @@ function formatDate(dateString: string): string {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function AuditLogTable() {
-  const {
-    data: logs,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<AuditLog[]>({
-    queryKey: ['audit-logs'],
-    queryFn: getAuditLogs,
-  });
+interface AuditLogTableProps {
+  logs: AuditLog[];
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
+  total: number;
+}
 
+export default function AuditLogTable({
+  logs,
+  isLoading,
+  isError,
+  error,
+  total,
+}: AuditLogTableProps) {
   // Loading State
   if (isLoading) {
     return (
@@ -121,7 +123,7 @@ export default function AuditLogTable() {
             {logs.map((log: AuditLog) => (
               <tr
                 key={log.id}
-                className="hover:bg-aboitiz-secondary/10 transition-colors duration-150"
+                className="hover:bg-aboitiz-secondary/10 transition-colors duration-150 group"
               >
                 <td className="px-5 py-3 text-sm text-aboitiz-textDark font-mono">
                   {log.id}
@@ -149,7 +151,7 @@ export default function AuditLogTable() {
       {/* Footer with count */}
       <div className="px-5 py-3 border-t border-aboitiz-primary/10 bg-aboitiz-bgLight/50">
         <p className="text-xs text-aboitiz-primary">
-          Showing {logs.length} log{logs.length !== 1 ? 's' : ''}
+          Showing {logs.length} logs on this page (Total {total} entries)
         </p>
       </div>
     </div>

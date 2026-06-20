@@ -10,14 +10,18 @@
 //   • Delete uses useMutation and invalidates 'meals' query on success.
 // =============================================================================
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getMeals, deleteMeal } from '../api/mealApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteMeal } from '../api/mealApi';
 import type { Meal, MealIngredient } from '../../../types';
 import { Utensils } from 'lucide-react';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface MealListProps {
+  meals: Meal[];
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
   onEdit: (meal: Meal) => void;
   onAddNew: () => void;
 }
@@ -133,18 +137,15 @@ function MealCard({ meal, onEdit, onDelete, isDeleting }: MealCardProps) {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function MealList({ onEdit, onAddNew }: MealListProps) {
+export default function MealList({
+  meals,
+  isLoading,
+  isError,
+  error,
+  onEdit,
+  onAddNew,
+}: MealListProps) {
   const queryClient = useQueryClient();
-
-  const {
-    data: meals,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Meal[]>({
-    queryKey: ['meals'],
-    queryFn: getMeals,
-  });
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => deleteMeal(id),

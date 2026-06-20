@@ -9,13 +9,17 @@
 //   • Delete button → calls deleteProduct mutation, then invalidates 'products' query.
 // =============================================================================
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getProducts, deleteProduct } from '../api/productApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteProduct } from '../api/productApi';
 import type { Product } from '../../../types';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface ProductListProps {
+  products: Product[];
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
   onEdit: (product: Product) => void;
   onAddNew: () => void;
 }
@@ -33,18 +37,15 @@ function MacroPill({ label, value, unit }: { label: string; value: number; unit:
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function ProductList({ onEdit, onAddNew }: ProductListProps) {
+export default function ProductList({
+  products,
+  isLoading,
+  isError,
+  error,
+  onEdit,
+  onAddNew,
+}: ProductListProps) {
   const queryClient = useQueryClient();
-
-  const {
-    data: products,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Product[]>({
-    queryKey: ['products'],
-    queryFn: getProducts,
-  });
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => deleteProduct(id),
