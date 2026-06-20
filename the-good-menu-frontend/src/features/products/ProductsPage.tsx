@@ -5,6 +5,7 @@ import ProductList from './components/ProductList';
 import ProductFormModal from './components/ProductFormModal';
 import type { Product } from '../../types';
 import { Beef, RefreshCw } from 'lucide-react';
+import SkeletonTable from '../../components/ui/SkeletonTable';
 
 export default function ProductsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -119,14 +120,20 @@ export default function ProductsPage() {
       </div>
 
       {/* Product List */}
-      <ProductList
-        products={filteredProducts}
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-        onEdit={handleEdit}
-        onAddNew={handleAddNew}
-      />
+      <div className="min-h-[500px]">
+        {isLoading ? (
+          <SkeletonTable />
+        ) : (
+          <ProductList
+            products={filteredProducts}
+            isLoading={false}
+            isError={isError}
+            error={error}
+            onEdit={handleEdit}
+            onAddNew={handleAddNew}
+          />
+        )}
+      </div>
 
       {/* Create / Edit Modal */}
       <ProductFormModal

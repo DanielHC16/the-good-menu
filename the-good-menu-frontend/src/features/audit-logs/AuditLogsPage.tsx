@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAuditLogs } from './api/getAuditLogs';
 import AuditLogTable from './components/AuditLogTable';
 import { ShieldAlert, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
+import SkeletonTable from '../../components/ui/SkeletonTable';
 
 export default function AuditLogsPage() {
   const queryClient = useQueryClient();
@@ -48,13 +49,19 @@ export default function AuditLogsPage() {
       </div>
 
       {/* Audit Log Table */}
-      <AuditLogTable
-        logs={logs}
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-        total={total}
-      />
+      <div className="min-h-[600px]">
+        {isLoading ? (
+          <SkeletonTable rowCount={10} />
+        ) : (
+          <AuditLogTable
+            logs={logs}
+            isLoading={false}
+            isError={isError}
+            error={error}
+            total={total}
+          />
+        )}
+      </div>
 
       {/* Pagination Controls */}
       <div className="flex items-center justify-between mt-4 bg-white/70 backdrop-blur-sm rounded-xl border border-aboitiz-primary/10 px-5 py-3 shadow-sm">

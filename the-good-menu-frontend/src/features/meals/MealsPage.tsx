@@ -12,6 +12,7 @@ import MealList from './components/MealList';
 import MealFormModal from './components/MealFormModal';
 import type { Meal } from '../../types';
 import { Utensils, RefreshCw } from 'lucide-react';
+import SkeletonTable from '../../components/ui/SkeletonTable';
 
 export default function MealsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -128,14 +129,20 @@ export default function MealsPage() {
       </div>
 
       {/* Meal List Grid */}
-      <MealList
-        meals={filteredAndSortedMeals}
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-        onEdit={handleEdit}
-        onAddNew={handleCreateNew}
-      />
+      <div className="min-h-[500px]">
+        {isLoading ? (
+          <SkeletonTable />
+        ) : (
+          <MealList
+            meals={filteredAndSortedMeals}
+            isLoading={false}
+            isError={isError}
+            error={error}
+            onEdit={handleEdit}
+            onAddNew={handleCreateNew}
+          />
+        )}
+      </div>
 
       {/* Create / Edit Modal */}
       <MealFormModal
