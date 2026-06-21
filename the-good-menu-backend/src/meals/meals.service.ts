@@ -37,8 +37,7 @@ export class MealsService {
       relations: {
         ingredients: {
           product: true,
-        },
-        schedules: true,
+        }
       },
     });
   }
