@@ -21,13 +21,13 @@ export class SchedulesService {
     return await this.schedulesRepository.find({
       where: { userId: userId },
       // Add the nested relations here:
-      relations: ['meal', 'meal.ingredients', 'meal.ingredients.product'], 
+      relations: ['meal', 'meal.ingredients', 'meal.ingredients.product'],
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, userId: number) {
     const schedule = await this.schedulesRepository.findOne({
-      where: { id },
+      where: { id, userId },
       relations: {
         meal: true,
       },
@@ -40,20 +40,19 @@ export class SchedulesService {
     return schedule;
   }
 
-  async update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    const schedule = await this.findOne(id);
+  async update(
+    id: number,
+    userId: number,
+    updateScheduleDto: UpdateScheduleDto,
+  ) {
+    const schedule = await this.findOne(id, userId);
     Object.assign(schedule, updateScheduleDto);
 
     return this.schedulesRepository.save(schedule);
   }
 
-  async remove(id: number) {
-    const schedule = await this.schedulesRepository.findOneBy({ id });
-
-    if (!schedule) {
-      throw new NotFoundException(`Schedule #${id} was not found.`);
-    }
-
+  async remove(id: number, userId: number) {
+    const schedule = await this.findOne(id, userId);
     await this.schedulesRepository.remove(schedule);
 
     return { message: `Record #${id} successfully deleted.` };

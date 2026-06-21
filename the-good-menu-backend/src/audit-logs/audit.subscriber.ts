@@ -92,7 +92,10 @@ export class AuditSubscriber implements EntitySubscriberInterface<any> {
 
   afterInsert(event: InsertEvent<any>): Promise<void> | void {
     const entity = event.entity;
-    if (!entity || this.shouldSkip(entity, event.metadata?.target as Function | undefined)) {
+    if (
+      !entity ||
+      this.shouldSkip(entity, event.metadata?.target as Function | undefined)
+    ) {
       return;
     }
 
@@ -105,7 +108,10 @@ export class AuditSubscriber implements EntitySubscriberInterface<any> {
 
   afterUpdate(event: UpdateEvent<any>): Promise<void> | void {
     const entity = event.entity;
-    if (!entity || this.shouldSkip(entity, event.metadata?.target as Function | undefined)) {
+    if (
+      !entity ||
+      this.shouldSkip(entity, event.metadata?.target as Function | undefined)
+    ) {
       return;
     }
 
@@ -127,12 +133,15 @@ export class AuditSubscriber implements EntitySubscriberInterface<any> {
 
   afterRemove(event: RemoveEvent<any>): Promise<void> | void {
     const entity = event.entity;
-    if (!entity || this.shouldSkip(entity, event.metadata?.target as Function | undefined)) {
+    if (
+      !entity ||
+      this.shouldSkip(entity, event.metadata?.target as Function | undefined)
+    ) {
       return;
     }
 
     const tableName = event.metadata.tableName;
-    const recordId = (entity as any).id ?? event.entityId ?? 0;
+    const recordId = entity.id ?? event.entityId ?? 0;
     const changes = { ...entity };
 
     return this.logAndNotify('DELETE', tableName, recordId, changes);
@@ -140,12 +149,15 @@ export class AuditSubscriber implements EntitySubscriberInterface<any> {
 
   afterSoftRemove(event: SoftRemoveEvent<any>): Promise<void> | void {
     const entity = event.entity;
-    if (!entity || this.shouldSkip(entity, event.metadata?.target as Function | undefined)) {
+    if (
+      !entity ||
+      this.shouldSkip(entity, event.metadata?.target as Function | undefined)
+    ) {
       return;
     }
 
     const tableName = event.metadata.tableName;
-    const recordId = (entity as any).id ?? event.entityId ?? 0;
+    const recordId = entity.id ?? event.entityId ?? 0;
     const changes = { ...entity };
 
     return this.logAndNotify('SOFT_DELETE', tableName, recordId, changes);

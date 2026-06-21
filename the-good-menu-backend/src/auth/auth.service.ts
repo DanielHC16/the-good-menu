@@ -32,7 +32,7 @@ export class AuthService {
   async register(registerDto: RegisterDto): Promise<Omit<User, 'password'>> {
     try {
       const user = this.usersRepository.create(registerDto);
-      const saved = await this.usersRepository.save(user) as User;
+      const saved = await this.usersRepository.save(user);
 
       // Strip the password before returning
       const { password: _, ...result } = saved;
@@ -41,7 +41,9 @@ export class AuthService {
     } catch (error: any) {
       // MySQL duplicate entry error code
       if (error.code === 'ER_DUP_ENTRY') {
-        throw new ConflictException('An account with this email already exists.');
+        throw new ConflictException(
+          'An account with this email already exists.',
+        );
       }
       throw error;
     }

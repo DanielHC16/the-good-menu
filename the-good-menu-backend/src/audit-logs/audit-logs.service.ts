@@ -20,7 +20,10 @@ export class AuditLogsService {
   }
 
   // Fetches all logs from the database (paginated)
-  async findAll(page: number, limit: number): Promise<{
+  async findAll(
+    page: number,
+    limit: number,
+  ): Promise<{
     data: AuditLog[];
     total: number;
     page: number;
@@ -46,7 +49,7 @@ export class AuditLogsService {
     return log;
   }
 
-  // ECURITY NOTE: Audit logs should generally be immutable! 
+  // ECURITY NOTE: Audit logs should generally be immutable!
   // We do not implement real update/delete logic here to protect the trail.
   update(id: number, updateAuditLogDto: UpdateAuditLogDto) {
     void updateAuditLogDto;

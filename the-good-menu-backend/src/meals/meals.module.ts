@@ -12,4 +12,3 @@ import { Schedule } from '../schedules/entities/schedule.entity';
   providers: [MealsService],
 })
 export class MealsModule {}
-

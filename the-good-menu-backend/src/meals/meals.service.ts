@@ -30,21 +30,21 @@ export class MealsService {
 
   findAll(userId: number) {
     return this.mealsRepository.find({
-      where: [
-        { userId: userId },
-        { userId: IsNull() },
-      ],
+      where: [{ userId: userId }, { userId: IsNull() }],
       relations: {
         ingredients: {
           product: true,
-        }
+        },
       },
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, userId: number) {
     const meal = await this.mealsRepository.findOne({
-      where: { id },
+      where: [
+        { id, userId },
+        { id, userId: IsNull() },
+      ],
       relations: {
         ingredients: {
           product: true,
@@ -60,8 +60,8 @@ export class MealsService {
     return meal;
   }
 
-  async update(id: number, updateMealDto: UpdateMealDto) {
-    const meal = await this.findOne(id);
+  async update(id: number, userId: number, updateMealDto: UpdateMealDto) {
+    const meal = await this.findOne(id, userId);
     const { ingredients, ...mealFields } = updateMealDto;
 
     Object.assign(meal, mealFields);
@@ -75,29 +75,12 @@ export class MealsService {
       await this.mealIngredientsRepository.save(newIngredients);
     }
 
-    return this.findOne(id);
+    return this.findOne(id, userId);
   }
 
-  async remove(id: number) {
-    const meal = await this.mealsRepository.findOneBy({ id });
-
-    if (!meal) {
-      throw new NotFoundException(`Meal #${id} was not found.`);
-    }
-
-    // Check if this meal is referenced by any schedule
-    const scheduleCount = await this.schedulesRepository.count({
-      where: { mealId: id },
-    });
-
-    if (scheduleCount > 0) {
-      // Meal is linked to schedule(s) — preserve via soft delete
-      await this.mealsRepository.softRemove(meal);
-      return { message: `Meal #${id} successfully soft-deleted.` };
-    }
-
-    // Meal has never been scheduled — clean hard delete
-    await this.mealsRepository.remove(meal);
-    return { message: `Meal #${id} successfully hard-deleted.` };
+  async remove(id: number, userId: number) {
+    const meal = await this.findOne(id, userId);
+    await this.mealsRepository.softRemove(meal);
+    return { message: `Meal #${id} successfully soft-deleted.` };
   }
 }

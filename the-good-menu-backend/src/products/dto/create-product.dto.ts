@@ -40,7 +40,7 @@ export class CreateProductDto {
   @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
-  carbsG! : number;
+  carbsG!: number;
 
   @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 })

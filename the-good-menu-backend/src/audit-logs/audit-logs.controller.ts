@@ -27,7 +27,10 @@ export class AuditLogsController {
     @Query('page') page: string = '1',
     @Query('limit') limit: string = '10',
   ) {
-    return this.auditLogsService.findAll(parseInt(page, 10), parseInt(limit, 10));
+    return this.auditLogsService.findAll(
+      parseInt(page, 10),
+      parseInt(limit, 10),
+    );
   }
 
   @Get(':id')
