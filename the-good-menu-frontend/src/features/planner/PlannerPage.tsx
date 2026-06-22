@@ -6,14 +6,40 @@
 // =============================================================================
 
 import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteSchedule } from './api/scheduleApi';
 import ScheduleList from './components/ScheduleList';
 import ScheduleFormModal from './components/ScheduleFormModal';
+import DeleteModal from '../../components/common/DeleteModal';
 import type { Schedule } from '../../types';
 import { CalendarDays } from 'lucide-react';
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr + 'T00:00:00'); // Treat as local
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
 
 export default function PlannerPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
+
+  // Delete modal state
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [scheduleToDelete, setScheduleToDelete] = useState<Schedule | null>(null);
+
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => deleteSchedule(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['schedules'] });
+    },
+  });
 
   function handleScheduleMeal() {
     setSelectedSchedule(null);
@@ -28,6 +54,24 @@ export default function PlannerPage() {
   function handleCloseModal() {
     setIsModalOpen(false);
     setSelectedSchedule(null);
+  }
+
+  function handleDeleteRequest(schedule: Schedule) {
+    setScheduleToDelete(schedule);
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleDeleteConfirm() {
+    if (scheduleToDelete) {
+      deleteMutation.mutate(scheduleToDelete.id);
+    }
+    setIsDeleteModalOpen(false);
+    setScheduleToDelete(null);
+  }
+
+  function handleDeleteClose() {
+    setIsDeleteModalOpen(false);
+    setScheduleToDelete(null);
   }
 
   return (
@@ -59,13 +103,31 @@ export default function PlannerPage() {
       </div>
 
       {/* Schedule List */}
-      <ScheduleList onEdit={handleEdit} onAddNew={handleScheduleMeal} />
+      <ScheduleList
+        onEdit={handleEdit}
+        onAddNew={handleScheduleMeal}
+        onDelete={handleDeleteRequest}
+        isDeleting={deleteMutation.isPending}
+      />
 
       {/* Create / Edit Modal */}
       <ScheduleFormModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         schedule={selectedSchedule}
+      />
+
+      {/* Delete Confirmation Modal */}
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteClose}
+        onConfirm={handleDeleteConfirm}
+        title="Remove Scheduled Meal"
+        message={
+          scheduleToDelete
+            ? `Remove "${scheduleToDelete.meal?.name ?? `Meal #${scheduleToDelete.mealId}`}" from ${scheduleToDelete.timeSlot} on ${formatDate(scheduleToDelete.scheduledDate.split('T')[0])}?`
+            : ''
+        }
       />
     </div>
   );

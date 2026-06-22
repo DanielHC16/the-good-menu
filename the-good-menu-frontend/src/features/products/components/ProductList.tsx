@@ -9,8 +9,6 @@
 //   • Delete button → calls deleteProduct mutation, then invalidates 'products' query.
 // =============================================================================
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteProduct } from '../api/productApi';
 import type { Product } from '../../../types';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -22,6 +20,8 @@ interface ProductListProps {
   error: any;
   onEdit: (product: Product) => void;
   onAddNew: () => void;
+  onDelete: (product: Product) => void;
+  isDeleting: boolean;
 }
 
 // ─── Macro Pill ───────────────────────────────────────────────────────────────
@@ -44,21 +44,9 @@ export default function ProductList({
   error,
   onEdit,
   onAddNew,
+  onDelete,
+  isDeleting,
 }: ProductListProps) {
-  const queryClient = useQueryClient();
-
-  const deleteMutation = useMutation({
-    mutationFn: (id: number) => deleteProduct(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-    },
-  });
-
-  function handleDelete(product: Product) {
-    if (window.confirm(`Delete "${product.name}"? This action uses a soft delete and cannot be easily undone.`)) {
-      deleteMutation.mutate(product.id);
-    }
-  }
 
   // ─── Loading State ───────────────────────────────────────────────────────────
 
@@ -215,8 +203,8 @@ export default function ProductList({
                     </button>
                     <button
                       id={`product-delete-btn-${product.id}`}
-                      onClick={() => handleDelete(product)}
-                      disabled={deleteMutation.isPending}
+                      onClick={() => onDelete(product)}
+                      disabled={isDeleting}
                       className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-aboitiz-danger
                                  border border-aboitiz-danger/30 hover:bg-aboitiz-danger/10
                                  disabled:opacity-50 disabled:cursor-not-allowed

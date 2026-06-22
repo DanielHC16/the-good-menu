@@ -6,10 +6,11 @@
 // =============================================================================
 
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getMeals } from './api/mealApi';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getMeals, deleteMeal } from './api/mealApi';
 import MealList from './components/MealList';
 import MealFormModal from './components/MealFormModal';
+import DeleteModal from '../../components/common/DeleteModal';
 import type { Meal } from '../../types';
 import { Utensils, RefreshCw } from 'lucide-react';
 import SkeletonTable from '../../components/ui/SkeletonTable';
@@ -19,6 +20,12 @@ export default function MealsPage() {
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('newest');
+
+  // Delete modal state
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [mealToDelete, setMealToDelete] = useState<Meal | null>(null);
+
+  const queryClient = useQueryClient();
 
   const {
     data: meals = [],
@@ -30,6 +37,13 @@ export default function MealsPage() {
   } = useQuery<Meal[]>({
     queryKey: ['meals'],
     queryFn: getMeals,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => deleteMeal(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['meals'] });
+    },
   });
 
   const filteredAndSortedMeals = meals
@@ -58,6 +72,24 @@ export default function MealsPage() {
   function handleCloseModal() {
     setIsModalOpen(false);
     setSelectedMeal(null);
+  }
+
+  function handleDeleteRequest(meal: Meal) {
+    setMealToDelete(meal);
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleDeleteConfirm() {
+    if (mealToDelete) {
+      deleteMutation.mutate(mealToDelete.id);
+    }
+    setIsDeleteModalOpen(false);
+    setMealToDelete(null);
+  }
+
+  function handleDeleteClose() {
+    setIsDeleteModalOpen(false);
+    setMealToDelete(null);
   }
 
   return (
@@ -140,6 +172,8 @@ export default function MealsPage() {
             error={error}
             onEdit={handleEdit}
             onAddNew={handleCreateNew}
+            onDelete={handleDeleteRequest}
+            isDeleting={deleteMutation.isPending}
           />
         )}
       </div>
@@ -149,6 +183,19 @@ export default function MealsPage() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         meal={selectedMeal}
+      />
+
+      {/* Delete Confirmation Modal */}
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteClose}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Meal Recipe"
+        message={
+          mealToDelete
+            ? `Delete meal "${mealToDelete.name}"? This action may soft-delete the record if it's linked to a schedule.`
+            : ''
+        }
       />
     </div>
   );

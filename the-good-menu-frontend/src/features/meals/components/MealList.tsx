@@ -10,8 +10,6 @@
 //   • Delete uses useMutation and invalidates 'meals' query on success.
 // =============================================================================
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteMeal } from '../api/mealApi';
 import type { Meal, MealIngredient } from '../../../types';
 import { Utensils } from 'lucide-react';
 
@@ -24,6 +22,8 @@ interface MealListProps {
   error: any;
   onEdit: (meal: Meal) => void;
   onAddNew: () => void;
+  onDelete: (meal: Meal) => void;
+  isDeleting: boolean;
 }
 
 // ─── Ingredient Row ───────────────────────────────────────────────────────────
@@ -144,22 +144,9 @@ export default function MealList({
   error,
   onEdit,
   onAddNew,
+  onDelete,
+  isDeleting,
 }: MealListProps) {
-  const queryClient = useQueryClient();
-
-  const deleteMutation = useMutation({
-    mutationFn: (id: number) => deleteMeal(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['meals'] });
-    },
-  });
-
-  function handleDelete(meal: Meal) {
-    if (window.confirm(`Delete meal "${meal.name}"? This action may soft-delete the record if it's linked to a schedule.`)) {
-      deleteMutation.mutate(meal.id);
-    }
-  }
-
   // ─── Loading State ───────────────────────────────────────────────────────────
 
   if (isLoading) {
@@ -229,8 +216,8 @@ export default function MealList({
             key={meal.id}
             meal={meal}
             onEdit={onEdit}
-            onDelete={handleDelete}
-            isDeleting={deleteMutation.isPending}
+            onDelete={onDelete}
+            isDeleting={isDeleting}
           />
         ))}
       </div>

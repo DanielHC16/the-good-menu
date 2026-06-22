@@ -10,8 +10,8 @@
 //   • Delete uses useMutation and invalidates 'schedules' query on success.
 // =============================================================================
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getSchedules, deleteSchedule } from '../api/scheduleApi';
+import { useQuery } from '@tanstack/react-query';
+import { getSchedules } from '../api/scheduleApi';
 import type { Schedule, TimeSlot } from '../../../types';
 import { Sunrise, Sun, Moon, CalendarDays, CalendarX } from 'lucide-react';
 
@@ -20,6 +20,8 @@ import { Sunrise, Sun, Moon, CalendarDays, CalendarX } from 'lucide-react';
 interface ScheduleListProps {
   onEdit: (schedule: Schedule) => void;
   onAddNew: () => void;
+  onDelete: (schedule: Schedule) => void;
+  isDeleting: boolean;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -89,9 +91,12 @@ function TimeSlotBadge({ slot }: { slot: TimeSlot }) {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function ScheduleList({ onEdit, onAddNew }: ScheduleListProps) {
-  const queryClient = useQueryClient();
-
+export default function ScheduleList({
+  onEdit,
+  onAddNew,
+  onDelete,
+  isDeleting,
+}: ScheduleListProps) {
   const {
     data: schedules,
     isLoading,
@@ -101,24 +106,6 @@ export default function ScheduleList({ onEdit, onAddNew }: ScheduleListProps) {
     queryKey: ['schedules'],
     queryFn: getSchedules,
   });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id: number) => deleteSchedule(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['schedules'] });
-    },
-  });
-
-  function handleDelete(schedule: Schedule) {
-    const mealName = schedule.meal?.name ?? `Meal #${schedule.mealId}`;
-    if (
-      window.confirm(
-        `Remove "${mealName}" from ${schedule.timeSlot} on ${formatDate(schedule.scheduledDate.split('T')[0])}?`
-      )
-    ) {
-      deleteMutation.mutate(schedule.id);
-    }
-  }
 
   // ─── Loading State ───────────────────────────────────────────────────────────
 
@@ -232,8 +219,8 @@ export default function ScheduleList({ onEdit, onAddNew }: ScheduleListProps) {
                   </button>
                   <button
                     id={`schedule-delete-btn-${s.id}`}
-                    onClick={() => handleDelete(s)}
-                    disabled={deleteMutation.isPending}
+                    onClick={() => onDelete(s)}
+                    disabled={isDeleting}
                     className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-aboitiz-danger
                                border border-aboitiz-danger/30 hover:bg-aboitiz-danger/10
                                disabled:opacity-50 disabled:cursor-not-allowed

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getProducts } from './api/productApi';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getProducts, deleteProduct } from './api/productApi';
 import ProductList from './components/ProductList';
 import ProductFormModal from './components/ProductFormModal';
+import DeleteModal from '../../components/common/DeleteModal';
 import type { Product } from '../../types';
 import { Beef, RefreshCw } from 'lucide-react';
 import SkeletonTable from '../../components/ui/SkeletonTable';
@@ -12,6 +13,12 @@ export default function ProductsPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+
+  // Delete modal state
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+
+  const queryClient = useQueryClient();
 
   const {
     data: products = [],
@@ -23,6 +30,13 @@ export default function ProductsPage() {
   } = useQuery<Product[]>({
     queryKey: ['products'],
     queryFn: getProducts,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => deleteProduct(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
   });
 
   const categories = Array.from(new Set(products.map((p) => p.category))).filter(Boolean);
@@ -46,6 +60,24 @@ export default function ProductsPage() {
   function handleCloseModal() {
     setIsModalOpen(false);
     setSelectedProduct(null);
+  }
+
+  function handleDeleteRequest(product: Product) {
+    setProductToDelete(product);
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleDeleteConfirm() {
+    if (productToDelete) {
+      deleteMutation.mutate(productToDelete.id);
+    }
+    setIsDeleteModalOpen(false);
+    setProductToDelete(null);
+  }
+
+  function handleDeleteClose() {
+    setIsDeleteModalOpen(false);
+    setProductToDelete(null);
   }
 
   return (
@@ -131,6 +163,8 @@ export default function ProductsPage() {
             error={error}
             onEdit={handleEdit}
             onAddNew={handleAddNew}
+            onDelete={handleDeleteRequest}
+            isDeleting={deleteMutation.isPending}
           />
         )}
       </div>
@@ -140,6 +174,19 @@ export default function ProductsPage() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         product={selectedProduct}
+      />
+
+      {/* Delete Confirmation Modal */}
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteClose}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Product"
+        message={
+          productToDelete
+            ? `Delete "${productToDelete.name}"? This action uses a soft delete and cannot be easily undone.`
+            : ''
+        }
       />
     </div>
   );
