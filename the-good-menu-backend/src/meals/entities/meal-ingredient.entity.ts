@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
   Check,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { Meal } from './meal.entity';
@@ -42,4 +43,7 @@ export class MealIngredient {
 
   @Column({ type: 'varchar', nullable: true })
   customIngredientName: string;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

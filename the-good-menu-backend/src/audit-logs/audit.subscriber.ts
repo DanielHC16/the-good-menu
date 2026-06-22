@@ -63,29 +63,29 @@ export class AuditSubscriber implements EntitySubscriberInterface<any> {
     recordId: number,
     changes: Record<string, unknown>,
   ): Promise<void> {
-    try {
-      // Persist the audit record via a fresh repository to avoid event re-entry
-      const auditRepo = this.dataSource.getRepository(AuditLog);
-      const log = auditRepo.create({
-        action,
-        tableName,
-        recordId,
-        changes,
+    // Persist the audit record via a fresh repository to avoid event re-entry
+    const auditRepo = this.dataSource.getRepository(AuditLog);
+    const log = auditRepo.create({
+      action,
+      tableName,
+      recordId,
+      changes,
+    });
+    await auditRepo.save(log);
+
+    this.logger.log(`Audit logged → ${action} on ${tableName} #${recordId}`);
+
+    // Fire email alert (non-blocking — errors are caught inside MailService)
+    this.mailService
+      .sendAuditAlert(action, tableName, recordId, changes)
+      .then(() => {
+        this.logger.log(
+          `Audit email sent → ${action} on ${tableName} #${recordId}`,
+        );
+      })
+      .catch((error) => {
+        this.logger.error('Failed to send audit email (Non-blocking)', error);
       });
-      await auditRepo.save(log);
-
-      this.logger.log(`Audit logged → ${action} on ${tableName} #${recordId}`);
-
-      // Fire email alert (non-blocking — errors are caught inside MailService)
-      await this.mailService.sendAuditAlert(
-        action,
-        tableName,
-        recordId,
-        changes,
-      );
-    } catch (error) {
-      this.logger.error('Failed to persist audit log', error);
-    }
   }
 
   // ─── TypeORM event hooks ──────────────────────────────────────────
