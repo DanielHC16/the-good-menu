@@ -22,6 +22,7 @@ export class SchedulesService {
       where: { userId: userId },
       // Add the nested relations here:
       relations: ['meal', 'meal.ingredients', 'meal.ingredients.product'],
+      withDeleted: true,
     });
   }
 
